@@ -1,0 +1,109 @@
+#@ Az app bemutatása
+
+###@ Szövegformázások
+*Kiemelt szöveg*
+**Erősen kiemelt szöveg**
+***Szupererősen kiemelt szöveg***
+
+###@ Idézetek
+> Don't cry because it's over,
+> smile because it happened.
+> > Dr. Seuss
+
+> War without hate.
+> > Erwin Rommel
+
+> s = v * t
+
+###@ Listák
+-  Elem 1
+-  Elem 2
+-  Elem 3
+
+1.  Elem 1
+2.  Elem 2
+3.  Elem 3
+4.  Elem 4
+
+###@ URL-ek
+
+Kimmel Gábor: [kimmelgabor.hu](http://szlatyka.netne.net "Kimmel Gábor oldala")
+
+Google link: [Google][google a barátod]
+
+Yahoo link: [Yahoo][2]
+
+![Egy kép](http://codemirror.net/doc/logo.png "Egy kép")
+
+###@ Horizontális vonal
+
+Vonal előtt
+
+---
+[google a barátod]: http://google.com "Google főoldal"
+
+[2]: http://yahoo.com
+Vonal után
+
+
+###@ LaTeX Egyenletek
+
+Szinusz függvény:
+%%sin(x)%%
+
+Pitagorasz-tétel:
+%%a^2 + b^2 = c^2%%
+
+Bonyolultabb egyenlet:
+%%
+\sum_i \hat{\psi_i} cos(\alpha_i \pm \omega t)
+%%
+
+Egy rossz egyenlet:
+%%
+\[\begin{aligned}
+\dot{x} & = \sigma(y-x) \\
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xy
+\end{aligned} \]
+%%
+
+%%\lim_{n{\to}0} \frac{1}{n}%%
+
+
+#@ Tesztszöveg
+
+##@ Alcím
+Blbablabla
+
+Új paragráfus
+
+##@ Másik alcím
+
+###@ Al-alcím
+
+Alternatív cím
+==============
+
+@ Alternatív cím
+----------------
+
++------------------------------------------------------------------+
+| Name            | Age | Occupation              | Location       |
++==================================================================+
+| Luke Peters     | 25  | Freelance Web Developer | Brookline, MA  | 
++------------------------------------------------------------------+
+| Joseph Smith    | 27  | Project Manager         | Somerville, MA |
++------------------------------------------------------------------+
+| Maxwell Johnson | 26  | UX Architect & Designer | Arlington, MA  |
++------------------------------------------------------------------+
+| Harry Harrison  | 25  | Front-End Developer     | Boston, MA     |
++------------------------------------------------------------------+
+
++----------+----------+
+| Táblázat | Táblázat |
++==========+==========+
+| LOL      |          |
++----------+----------+
+|LOL 2     | LOL 2    |
++----------+----------+

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html style="overflow: visible;" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <title>Arduino segédlet</title>
+
+	<link rel="stylesheet" href="../common/css/bootstrap.css">
+	<link rel="stylesheet" href="../common/css/thedocs.css">
+	<link rel="stylesheet" href="../common/css/custom.css">
+	<link rel="stylesheet" href="../common/css/css.css">
+	
+	<link rel="stylesheet" href="./res/css/dd.css">
+</head>
+
+<body data-spy="scroll" data-target=".sidebar" data-offset="200">
+    <header class="site-header navbar-transparent">
+
+
+      <!-- Banner -->
+      <div class="banner auto-size" style="background-color: #5cc7b2">
+        <div class="container-fluid text-white">
+          <h1><strong>Elektronika</strong> teszt</h1>
+          <h5>Tedd próbára a tudásod!.</h5>
+        </div>
+      </div>
+      <!-- END Banner -->
+
+    </header>
+
+    <main class="container-fluid">
+
+      <!-- Main content -->
+      <article class="main-content" role="main">
+		<div id='quiz-questions'>
+			<h2>Elektronika teszt</h2>
+			
+			<h3>Mit nevezünk vezetőnek? (1 pont)</h3>
+			<div class='question'>
+				<p><input type="radio" name="question1" value="0">Aki a kormánynál ül.</p>
+				<p><input type="radio" name="question1" value="1">Olyan anyag, amin az eletromos áram könnyen átmegy.</p>
+				<p><input type="radio" name="question1" value="0">Olyan anyag, amely a rájta áthaladó áramot könnyen alakít át fénnyé.</p>
+				<p><input type="radio" name="question1" value="0">Villamossátgtanban nincs ilyen fogalom.</p>
+			</div>
+			
+			<h3>Hozzáérhetünk egy szigetelőhöz, ha tudjuk, hogy van a közelben áramforrás? (1 pont)</h3>
+			<div class='question'>
+				<p><input type="radio" name="question2" value="1">Igen, mert a szigetelő nem vezeti az áramot.</p>
+				<p><input type="radio" name="question2" value="0">Nem, mert az elektromos áramforráshoz érni veszélyes!</p>
+			</div>
+			
+			<h3>Az alábbiak közül melyik vezető? (1 pont)</h3>
+			<div class='question'>
+				<p><input type="checkbox" name="question3-1" value="1">Vas</p>
+				<p><input type="checkbox" name="question3-2" value="1">Réz</p>
+				<p><input type="checkbox" name="question3-3" value="0">Üveg</p>
+				<p><input type="checkbox" name="question3-4" value="1">Csapvíz</p>
+				<p><input type="checkbox" name="question3-5" value="0">Szilícium</p>
+				<p><input type="checkbox" name="question3-6" value="0">Gumi</p>
+			</div>
+			
+			<h3>Az ellenállás vezető vagy szigetelő? (1 pont)</h3>
+			<div class='question'>
+				<p><input type="radio" name="question4" value="1">Vezető</p>
+				<p><input type="radio" name="question4" value="0">Szigetelő</p>
+			</div>
+			
+			<h3>Mire jó az ellenállás? Mi az áramköri jele? Mi a mértékegysége? (3 pont)</h3>
+			<p>
+				Az ellenállás
+				<select name='question5' class='question' style='width: 220px'>
+					<option value='1'>lassítja az áthaladó áramot</option>
+					<option value='0'>feszültséget állít elő</option>
+					<option value='0'>kapcsolóként használható</option>
+				</select>, az áramköri jele
+				<select name='question6' class='question' style='width: 90px'>
+					<option value='0' title='res/img/switch2.png'></option>
+					<option value='1' title='res/img/resistor.png'></option>
+					<option value='0' title='res/img/diode.png'></option>
+					<option value='0' title='res/img/fuse.png'></option>
+				</select>, a mértékegysége a(z)
+				<select name='question7' class='question' style='width: 90px'>
+					<option value='0'>farad</option>
+					<option value='0'>amper</option>
+					<option value='1'>ohm</option>
+				</select>.
+			</p>
+			
+			<h3>Mire jó a kondenzátor? Mi az áramköri jele? Mi a mértékegysége? (3 pont)</h3>
+			<p>
+				Az ellenállás
+				<select name='question8' class='question' style='width: 220px'>
+					<option value='0'>stabilizálja a feszültséget</option>
+					<option value='0'>összetömöríti az áramot</option>
+					<option value='1'>töltést tárol</option>
+				</select>, az áramköri jele
+				<select name='question9' class='question' style='width: 90px'>
+					<option value='0' title='res/img/npn.png'></option>
+					<option value='0' title='res/img/opamp.png'></option>
+					<option value='0' title='res/img/pot.png'></option>
+					<option value='1' title='res/img/capacitator.png'></option>
+				</select>, a mértékegysége a(z)
+				<select name='question10' class='question' style='width: 150px'>
+					<option value='0'>négyzetméter</option>
+					<option value='1'>farad</option>
+					<option value='0'>hertz</option>
+				</select>.
+			</p>
+			
+			<h3>Lényeges-e az egyen- és váltóáramnál a polaritás? (1 pont)</h3>
+			<div class='question'>
+				<p><input type="radio" name="question11" value="0">Mindkettőnél fontos</p>
+				<p><input type="radio" name="question11" value="0">A váltónál fontos, az egyennél nem</p>
+				<p><input type="radio" name="question11" value="1">Az egyennél fontos, a váltónál nem</p>
+				<p><input type="radio" name="question11" value="0">Egyiknél sem fontos</p>
+			</div>
+			
+			<h3>Egy telefonhoz vettünk egy töltőt, és a következő van ráírva: Kimenet: 5V / 2A. A telefonunkat 3V / 300mA-ral kell tölteni. Baj, hogy a megadott feszültség nagyobb? Baj, hogy a megadott áram nagyobb? (4 pont)</h3>
+			<p>
+				<select name="question12" class='question' style='width: 100px'>
+						<option value='1'>Baj</option>
+						<option value='0'>Nem baj</option>
+				</select>
+				, hogy a feszültség nagyobb, mint ami a telefonra van írva, mert
+				<select name="question13" class='question' style='width: 380px'>
+					<option value='0'>az a lényeg, hogy a feszültség elég magas legyen</option>
+					<option value='1'>a nagyobb feszültség tönkreteszi a készüléket</option>
+					<option value='0'>a kisebb feszültség tönkreteszi a készüléket</option>
+				</select>
+			</p>
+			<p>
+				<select name="question14" class='question' style='width: 100px'>
+						<option value='0'>Baj</option>
+						<option value='1'>Nem baj</option>
+				</select>
+				, hogy az áram nagyobb, mint ami a telefonra van írva, mert
+				<select name="question15" class='question' style='width: 380px'>
+					<option value='1'>az a lényeg, hogy az áram elég magas legyen</option>
+					<option value='0'>a nagyobb áram tönkreteszi a készüléket</option>
+					<option value='0'>a kisebb áram tönkreteszi a készüléket</option>
+				</select>
+			</p>
+			
+			<h3>Mit mond ki Ohm törvénye? (4 pont)</h3>
+			<p>
+				Az elektromosan vezető anyagok a rajtuk átáramló
+				<select name="question16" class='question' style='width: 130px'>
+					<option value='0'>feszültséggel</option>
+					<option value='1'>árammal</option>
+					<option value='0'>kapacitással</option>
+					<option value='0'>ellenállással</option>
+				</select>
+				szemben
+				<select name="question17" class='question' style='width: 130px'>
+					<option value='1'>ellenállást</option>
+					<option value='0'>induktivitást</option>
+					<option value='0'>töltést</option>
+					<option value='0'>fluxust</option>
+				</select>
+				fejtenek ki, amely egyenlő a rákapcsolt
+				<select name="question18" class='question' style='width: 130px'>
+					<option value='0'>ellenállás</option>
+					<option value='0'>áram</option>
+					<option value='0'>kapacitás</option>
+					<option value='1'>feszültség</option>
+				</select>
+				és
+				<select name="question19" class='question' style='width: 130px'>
+					<option value='0'>ellenállás</option>
+					<option value='1'>áram</option>
+					<option value='0'>kapacitás</option>
+					<option value='0'>feszültség</option>
+				</select>
+				hányadosával.
+			</p>
+			
+			<h3>Egy 48 ohmos ellenállásra 12V feszültséget kapcsolunk, mekkora áram folyik át rajta? (1 pont)</h3>
+			<p><input type='text' name='question20'> amper</p>
+			
+			<h3>Mire jó a dióda? Mi a dióda áramköri jele? Hogyan kell bekötni? (3 pont)</h3>
+			<p>
+				A dióda
+				<select name='question21' class='question' style='width: 220px'>
+					<option value='1'>egyenirányít</option>
+					<option value='0'>kapcsolóként használható</option>
+					<option value='0'>az erősítők alapalkatrésze</option>
+				</select>, az áramköri jele
+				<select name='question22' class='question' style='width: 90px'>
+					<option value='0' title='res/img/npn.png'></option>
+					<option value='1' title='res/img/diode.png'></option>
+					<option value='0' title='res/img/switch2.png'></option>
+					<option value='0' title='res/img/capacitator.png'></option>
+				</select>. 
+				<br>Bekötni mindig úgy kell, hogy
+				<select name='question23' class='question' style='width: 300px'>
+					<option value='0'>a nyíl a pozitív pólus felé mutasson</option>
+					<option value='1'>a nyíl a negatív pólus felé mutasson</option>
+				</select>.
+			</p>
+			
+			<h3>Mire jó a tranzisztor? Melyik a tranzisztor áramköri jele? (2 pont)</h3>
+			<p>
+				A tranzisztor
+				<select name='question24' class='question' style='width: 220px'>
+					<option value='0'>egyenirányít</option>
+					<option value='1'>kapcsolóként használható</option>
+					<option value='0'>órajelet állít elő</option>
+				</select>, az áramköri jele
+				<select name='question25' class='question' style='width: 90px'>
+					<option value='1' title='res/img/npn.png'></option>
+					<option value='0' title='res/img/diode.png'></option>
+					<option value='0' title='res/img/switch2.png'></option>
+					<option value='0' title='res/img/capacitator.png'></option>
+				</select>. 
+			</p>
+			<center>
+				<button id='solve-quit'>Kérem az eredményt!</button>
+			</center>
+		</div>
+		<div id='quiz-result'>
+			<h1>A teszteredményed: <span id='quiz-score'><span></span>/25</span></h1>
+			<center>
+				<button id='reset-quiz'>Újra kitöltöm!</button>
+			</center>
+		</div>		
+      </article>
+      <!-- END Main content -->
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container-fluid">
+        <a id="scroll-up" href="#"><i class="fa fa-angle-up"></i></a>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <p>Ganz Ifjúsági Műhely, 2017-2018. - v2.0</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <ul class="footer-menu"></ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- END Footer -->
+
+    <!-- Scripts -->
+    <script src="../../modules/common/js/jquery.min.js"></script>
+    <script src="./res/js/jquery.dd.min.js"></script>
+	<script>
+		$("#quiz-questions select").msDropDown();
+
+		$('#reset-quiz').click(resetQuiz);
+
+		$('#solve-quit').click(function()
+		{
+			var score = 0;
+			for(var i = 1; i <= 25; i++)
+			{
+				if(i == 3)
+				{
+					var tmp = 0;
+					for(var j = 1; j <= 6; j++)
+					{
+						var obj = $('[name="question3-'+j+'"]');
+						if(obj.val() == 1)
+						{
+							tmp += (obj.prop("checked")) ? 1 : -1;
+						}
+						else
+						{
+							tmp += (obj.prop("checked")) ? -1 : 1;
+						}
+					}
+					if(tmp == 6) score++;
+				}
+				else if(i == 20)
+				{
+					if($('[name="question20"]').val() == "0.25" || $('[name="question20"]').val() == "0,25") score++;
+				}
+				else
+				{
+					if($('[name="question'+i+'"]').is('input'))
+					{
+						if($('[name="question'+i+'"]:checked').val() == 1) score++;
+					}
+					else
+					{
+						if($('[name="question'+i+'"]').val() == 1) score++;
+					}
+					
+				}
+			}
+			
+			$('input:checked').parent().addClass('wrong-answer');
+			$('.wrong-answer input:checked[value=1]').parent().addClass('right-answer');
+			
+			$('select').filter(function(){ return $(this).val() == 0; }).parent().next().addClass('wrong-answer');
+			$('select').filter(function(){ return $(this).val() == 1; }).parent().next().addClass('right-answer');
+			
+			//$('#quiz-questions').hide();
+			
+			$('#quiz-score span').html(score);
+			$('#quiz-result').show();
+		});
+		
+		resetQuiz();
+
+		function resetQuiz()
+		{
+			$('input').parent().removeClass('wrong-answer').removeClass('right-answer');
+			$('select').parent().next().removeClass('wrong-answer').removeClass('right-answer');
+			$('#quiz-result').hide();
+			$('#quiz-questions').show();
+		}	
+
+		</script>
+	</body>
+</html>

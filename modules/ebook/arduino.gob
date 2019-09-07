@@ -1,0 +1,1503 @@
+##Bevezető
+
+> Az Arduino egy szabad szoftveres, nyílt forráskódú elektronikai fejlesztőplatform, arra tervezve, hogy a különböző projektekben az elektronikus eszközök könnyebben hozzáférhetőek, kezelhetőek legyenek. Széles tömegek számára elérhető, mivel olcsó, könnyen beszerezhető, egyszerűen programozható, és csatlakoztatható más eszközökhöz.
+
+Az Arduino eszközöket a saját programnyelvén az Arduino-n lehet programozni. Bár ez a nyelc nagyon ahsonló a C++-hoz, pár különbség mégis van. Ennek a segédletnek a célja, hogy az Arduino nyelv és függvénykészlet alapvető elemeit bemutassa.
+
+A segédlet végén összegyűjtöttünk pár valós alakalmazásokra hasznos kódpéldát ill. egyszerű, komplett programokat, amelyek azonnal kipróbálhatóak és (remélhetőleg) megkönnyítik az Arduino felprogramozását.
+
+A segédletet a Ganz Ifjúsági Műhely készíti és teszi nyilvánossá. A segédletet szerkeszti: <i>Kimmel Gábor</i>.
+
+A tartalomhoz hozzájárultak:
+
+* Kimmel Gábor (<a href='mailto:kimmelgabor@gmail.com'>kimmelgabor@gmail.com</a>)
+* Kiss Attila (<a href='mailto:werdase@gmail.com'>werdase@gmail.com</a>)
+
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+##Alapszabályok
+
+Pár egyszerű szabály betartásával már el tudjuk kezdeni az Arduino nyelven írt programunk írását:
+
+* A parancsokat pontosvessző zárja - <pre class='inline'><code>digitalWrite(13, HIGH);</code></pre></li>
+* Egy sorba több parancs is írható - <pre class='inline'><code>digitalWrite(13, HIGH); delay(500);</code></pre></li>
+* Parancsblokkot { és } karakterekkel tudunk írni.</li>
+* Elágazásra az <a href='#Elágazáskezelés'>if, else és switch</a> parancsokat tudjuk használni.</li>
+* Ciklusokhoz a while, és for parancsokat használhajtuk.</li>
+* Az Aurduino programnak <a href='#felepites'>előre definiált struktúrá</a>ja van.</li>
+* Az Aurduino rendszernek van egy nagy halmaz előre elkészített függvénykészlete.</li>
+* Kommentsort a // jelekkel lehet írni, komment-blokkot a /* karakterekkel kezdünk és */ karakterekkel zárunk. - <pre class='inline'><code>/* Ez egy komment */ digitalWrite(13, HIGH); //Ez is</code></pre>
+
+Jót teszünk magunknak és másoknak, ha a következő tanácsokat is betartjuk:
+* A változónevek legyenek mindig egyértelműek.
+* Mindig használjunk kommenteket. Nem muszáj minden sort kommentelni, de az összetartózó részek legyenek leírva, hogy mi mit csinál.
+* Ha gyakran ismétlünk bizonyos részeket, törekedjünk arra, hogy metódusba szervezzük ezeket a részeket - NE a kódrészletet másoljuk le többször!
+
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+##Nyelvi elemek listája
++-------------------------------------------------+
+| Jel           | Magyarázat                      |
++=================================================+
+| ;             | Parancs végét jelző karakter    |
++-------------------------------------------------+
+| '             | Karakter írására alkalmas jel   |
++-------------------------------------------------+
+| ||            | Logikai VAGY                    |
++-------------------------------------------------+
+| &&            | Logikai ÉS                      |
++-------------------------------------------------+
+| |             | Bitenkénti VAGY                 |
++-------------------------------------------------+
+| &             | Bitenkénti ÉS                   |
++-------------------------------------------------+
+| <<, >>        | Bitek eltolása                  |
++-------------------------------------------------+
+| ==            | Egyenlőségvizsgálat             |
++-------------------------------------------------+
+| !=            | Egyenlőtlenségvizsgálat         |
++-------------------------------------------------+
+| =             | Értékedás                       |
++-------------------------------------------------+
+| +=, -=, /= *= | Értékmódosítás                  |
++-------------------------------------------------+
+| ++, --        | Eggyel növelés ill. csökkentés  |
++-------------------------------------------------+
+
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+##Változók, típusok
+
+###Típusok
+
+A számítógép memóriája szigorúan véve csak egész számokat tud tárolni, de okos tervezéssel tudunk törtszámokat, karaktereket, szöveget, sőt, ennél összetettebb adatfajtákat is használni.
+
+####Számszerű típusok
+
+A számszerű típusok a következők:
+* code>int</code>
+* <code>short</code>
+* <code>long</code>
+* <code>uint</code>
+* <code>ushort</code>
+* <code>ulong</code>
+
+####Karakteres típusok
+
+* <code>char</code>
+* <code>String</code>
+
+<div class=' info box'>Léteznek más, bonyolultabb típusok is, erről a <a href='#Függvénykészlet'>beépített függvények</a>nél tudsz továbbolvasni.</div>
+
+###Változók
+
+Változókat nekünk kell kézzel létrehozni ha használni akarjuk őket. Először meg kell adni a típusukat, utána az azonosítójukat vagy nevüket. Egyből ezután érdmes nekik értéket is adni (ld <a href='#Értékadás'>Értékadás</a>). A legjobb olyan értéket adni, amiről tudjuk, hogy az az alapértelmezett érték, tehát "valós" körülmények között nem fordulhat elő. Ha pl. 0-5 közötti számokat akarunk a változóba írni, egy jó alapértelmezett érték a -1.
+
+'''
+int valtozo = -1; //Típus és név, majd értékadás
+'''
+
+Attól függően, hogy <i>hol</i> hozzuk létre a változót beszélhetünk globális és lokális változókról.
+
+'''
+int globalis;
+
+void setup()
+{
+globalis = 0;
+}
+
+void loop()
+{
+int lokalis = 0;
+
+globalis = globalis + 1; //1, 2, 3, 4, stb.
+lokalis = lokalis + 1; //mindig 1!
+}
+'''
+
+A fenti programban lérehoztunk egy globális és lokális változót. A globális értéke folyamatosan nőni fog, míg a lokálisé ugyanaz marad. Miért?
+
+A lokális változók "megsemmisülnek", amint a blokk, amiben létrehoztuk őket véget ér. A globális változónkat egyből a program elején hoztuk létre, tehát "örökéletű" marad. Lokális változót olyan helyen érdemes használni, ahol csak ideiglenesen van szükségünk egy plusz tárolóhelyre, globálsiat pedig ott, ahol az egész programot befolyásoló adatokat akarunk tárolni.
+
+###Tömbök
+
+A tömbök ugyanolyan típusú változóknak a csoportja. Tömböt bármilyen típusból létre lehet hozni.
+
+'''
+int[] valtozo = int[3];
+'''
+
+Itt lérehoztunk egy 3 méretű tömböt. A különböző elemekhez az ún. <i>indexeren</i> keresztül tudunk hozzáférni. Az indexek mindig 0-tól kezdődnek.
+
+'''
+valtozo[0] = 1;
+valtozo[1] = 5;
+valtozo[2] = 10;
+'''
+
+<div class='important box'>Nagyon figyelni kell arra, hogy nehogy túlindexeljük a tömböket (nagyobb vagy kisebb index, mint ami létezik)!</div>
+
+A tömbök különösen hasznosak, ha <a href='#Ciklusok'>ciklusok</a>ban tudjuk őket használni!
+
+<!------------------------------------------------------------------------------------------------->
+
+##Műveletek
+
+###Értékadás
+
+Egy változót nem elég csak létrehozni, értéket is kell adni neki, hogy használható legyen. Egy változó értéke többféleképpen módosítható.
+
+A legegyszerűbb értékadás, amikor egyértelműen megadjuk a változó értékét
+
+'''
+int i;
+int j;
+
+i = 3;
+j = -5;
+
+i = j; //i=-5
+</code></pre>
+<p>Ha egy változót csak egy egyszerű számmal szeretnénk módosítani, használhatjuk a négy alapműveletet egyszerűsítő értékadásokat is.</p>
+<pre class='arduino'><code>
+int i = 0;
+
+i += 3; //i=3
+i *= 2; //i=6
+i -= 4; //i=2
+i /= 2; //i=1
+</code></pre>
+<p>Különleges művelet az inkrementálás és a dekrementálás. Ez esetben pontosan 1-el tudjuk növelni vagy csökkentei egy változó értékét.</p>
+<pre class='arduino'><code>
+int i = 0;
+
+i++; //i=1
+i--; //i=0
+'''
+
+###Aritmetikai műveletek
+
+Az aritmetikai műveletek olyan műveletek, amiket számokon lehet használni. Mivel az Arudino nyelvben a legtöbb adat amivel dolgozunk számszerű, ezért a legtöbb változón használhatóak. Eredményük mindig egy igaz-hamis érték lesz. Leginkább fletételek írására használhatjuk ezeket a műveleteket.
+
+A kettő legfontosabb ilyen művelet az egyenlőség- és különbözőségvizsgálat. Két további ilyen művelet a nagyobb- illetve kisebb vizsgálat.
+
+'''
+int a = 10;  //hamis
+int b = 15;  //igaz
+int c = -3;  //igaz
+int d = 10; //igaz 
+
+int q = a == d; //egyenlőségvizsgálat - igaz
+int r = b != d; //különbözőségvizsgálat - igaz
+int s = b > c; //relációs vizsgálat - igaz
+int t = d < c; //relációs vizsgálat - hamis
+'''
+
+###Logikai műveletek
+
+Az Arduino nyelv egy erősen kapcsolásokhoz kapcsolódó nyelv. Emiatt logikai függvényeket is lehet vele írni.
+
+A logikai függvények alapvetően három műveletet ismernek:
+* ÉS (AND)
+* VAGY (OR)
+* NEM (NOT)
+
+Ezekből lehet további műveleteket lérehozni:
+* ÉS-NEM (NAND)
+* VAGY-NEM (NOR)
+* EGYENLŐ (EQU)
+* KÜLÖNBÖZŐ (XOR)
+
+Érdekes módon az Arduino (és C++) nyelvben nincs logikai változótípus. Helyette használható bármelyik szám, ahol a 0 a hamis, bármelyik másik érték (pl. 1) az igaz értéket jelenti. Így már lehet írni logikai kifejezéseket is. Ezeket több jel feldolgozására, vagy feltételek írására lehet használni. Érdemes viszont mindig egy igaz értéket használni, mert az EGYENLŐ és KÜLÖNÖZŐ műveletek számszerű egyenlőséget vizsgálnak!
+
+<div class='info box'>A kódrészletek között találsz egy egyszerű logikai típus implementációt!</div>
+
+A nyelvben a három alapvető, ill. az egyenlőség és különbözőség-vizsgálatra beépített parancsok vanak. A NAND és NOR kifejezéseket ezekből lehet létrehozni.
+'''
+int a = 0;  //hamis
+int b = 1;  //igaz
+int c = 3;  //igaz
+int d = -5; //igaz 
+int q = 0;
+
+q = a && b; //ÉS
+q = a || c; //VAGY
+q = !a      //NEM
+q = b == d; //EGYENLŐ
+q = a != c; //KÜLÖNBÖZŐ
+
+q = !(a && d) //ÉS-NEM
+q = !(b ||c) //ÉS-VAGY
+'''
+
+Mint a NAND és NOR kifejezéseken látható, a logikai műveletek szabadon kominálhatóak egymással. A műveletek sorrendje balról jobbra halad, zárójelekkel viszont vezérelhető melyik művelet fusson le előbb (hasonlóan a matematikai kifejezésekhez).
+'''
+q = !(d || (c && a) && b == d) //igaz, ha d igaz vagy c és a igaz, és d és d egyenlő
+'''
+
+###Bitműveletek
+Mivel a mikrokontroller digitális lábait felfoghatjuk biteknek is (0 és 1 értékeik lehetnek), ezért a mikrokontrollereknél kiemelkedően fontos műveletek a bitek manipulálása. Sok esetben kisebb és gyorsabb kód írható, ha jól tudunk bárrni a bitek alacsony szintű kezeléséhez való eszközökkel.
+
+Két számot nem csak matematikailag lehet kombinálni, hanem bitentént is - ÉSelni és VAGYolni.
+'''
+int i = 1;   //00000001
+int j = 8;   //00001000
+int k = 248; //11111000
+i = i | j;   //00001001,  i=9
+k = k & i;   //00001000,  k=16
+'''
+
+Ennél még hasznosabb, ha egy változó bitjeit tudjuk eltolni. Ez, ha számszerűen nézzük a változókat teljesen véletlenszerű eredményeket ad, de ha bitenként nézzük, akkor nehéznek gondolt feladatokat lehet meglepően egyszerűen megcsinálni.
+'''
+int i = 1;  //00000001
+i = i &lt;&lt; 3; //00001000,  i=8
+i = i &gt;&gt; 2; //00000010,  i=2
+'''
+
+Egy nagyon egyszerű Knight-Rider kódrészlet például valahogy így nézne ki (ld. <a href='#Elágazáskezelés'>Elágazáskezelés</a>):
+<pre class='arduino'><code>
+int i = 1;
+int irany = 0;
+
+...
+
+if(i == 1) //00000001
+{
+irany = 0;
+}
+else if(i == 128) //10000000
+{
+irany = 1;
+}
+
+if(irany == 0)
+{
+i = i &lt;&lt; 1;
+}
+else
+{
+i = i &gt;&gt; 1;
+}
+PORTD = i; //PORTD az 1-8 lábakat fogja össze, erről bővebben az oktatóktól!
+delay(200);
+</code></pre>
+
+<!------------------------------------------------------------------------------------------------->
+
+<h2 id='Elágazáskezelés'>Elágazáskezelés</h2>
+<p>Ha meg akarunk vizsgálni egy változót, hogy mi az értéke, vagy attól függően, hogy mi az értéke, más és mást akarunk csinálni az if, else, és switch parancsokat használhatjuk.
+
+<h3 id='If+else'>If és else</h3>
+<p>A következő kód egy villogót valósít meg. Ha az i változó értéke 1, akkor világít a led, ha 0 nem. A következő lépshez megcseréljük az értékét a változónak és várakozunk.
+<pre class='arduino'><code>
+int i;
+
+void setup()
+{
+  i = 0;
+  pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+  if(i == 0)
+  {
+  i = 1;
+  digitalWrite(13, HIGH);
+  }
+  else
+  {
+  i = 0;
+  digitalWrite(13, LOW);
+  }
+  delay(300);
+}
+</code></pre>
+
+<h3 id='Switch'>Switch - többirányú elágazás</h3>
+<p>Ha több irányba akarunk elágazni használhatunk sok ife-else-t de erre jobb megoldás a switchek használata</p>
+<pre class='arduino'><code>
+int i;
+
+void setup()
+{
+  i = 0;
+  pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+  //Ez így rossz!
+  if(i == 0)
+  {
+    //...
+  }
+  else if(i == 1)
+  {
+    //...
+  }
+  else if(i == 2 || i == 4)
+  {
+    //...
+  }
+  else if(i == 3)
+  {
+    //...
+  }
+  
+  //Ez így jó!
+  switch(i)
+  {
+    case 1:
+      break;
+    
+    //Több eset is összevonható
+    case 2:
+    case 4:
+      break;
+    
+    case 3:
+      break;
+  }
+  delay(300);
+}
+</code></pre>
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+<h2 id='Ciklusok'>Ciklusok</h2>
+<p>A programozás egy másik alapja, hogy bizonyos műveletek egymás után többször, adott esetben ismeretlen sokszor kell ismételnünk.
+<pre class='arduino'><code>
+digitalWrite(LED, HIGH);
+delay(500);
+digitalWrite(LED, LOW);
+delay(500);
+digitalWrite(LED, LOW);
+delay(500);
+digitalWrite(LED, LOW);
+</code></pre>
+<p>Honnan tudhatjuk, hogy 3-zor kell villogtatni a ledet? Lehet, hogy a felhasználó akarja beállítani, hogy hány villogás legyen. Egyszerű kódisméléssel erre már nem tudunk felkészülni. Erre és hasonló feladatokra valóak a ciklusok.</p>
+
+<h3 id='While'>While ciklus</h3>
+<p>Tegyük fel, hogy soros porton akarunk beolvasni adatot. Ehhez először küldünk egy olvasási kérelmet, és ezután megvárjuk, hogy megérkezzen az adat. Hogyan kezeljük, ezt a várakozást?</p>
+<pre class='arduino'><code>
+Serial.begin(9600);
+Serial.write('keres');
+delay(1000);
+char c = Serial.read();
+</code></pre>
+<p>Ezzel a megoldással két baj van: ha gyorsan megjö az adat, akkor hiába vártunk 1 másodpercet. Másrészt semmi garancia nincs rá, hogy 1 másodperc alatt megjön az adat. Szerencsére a soros portnak van egy <i>available</i> metódusa, ami a még be nem olvasott karakterek számát jelzi. Tehát addig kell csinálnunk a semmit, amíg nincs mit beolvasni. Ezt a <i>while</i> paranccsal tudjuk megtenni.</p>
+<pre class='arduino'><code>
+Serial.begin(9600);
+Serial.write('keres');
+while(Serial.available() == 0)
+{
+}
+char c = Serial.read();
+</code></pre>
+<p>A while parancs hasonlóan működik mint az if, azzal a különbséggel, hogy egészen addig fogja ismételni a benne lévő parancsokat, amíg a megadott feltétele igaz.</p>
+<p>A while ciklusnak vagy egy ritkábban használt változata, a do-while. Ez egyszer mindenképpen lefut, utána pedig a feltételtől függően még többször (vagy másodszor már nem). Általában nem ajánlott használni, ezért ebbe a segédletbe nem kerül be.</p>
+
+<h3 id='For'>For ciklus</h3>
+<p>A for ciklus alapvetően nem sokban különbözik a while ciklustól. Igazából csak egy rövidítés, de nagyon hasznos tud lenni, mert rövidebbé és olvashatóbbá teszi a kódot</p>
+<pre class='arduino'><code>
+//For ciklusfelépítés
+for(kezdes; feltetel; modositas)
+{
+...
+}
+
+//Ugyanez a ciklus while-al
+kezdes;
+while(feltetel)
+{
+...
+
+modositas;
+}
+</code></pre>
+<p>A fenti két ciklus megegyezik. A for ciklus egyszerűen használható pl. olyan ciklusokban, ahol sorszámokra van szükségünk:</p>
+<pre class='arduino'><code>
+int i;
+for(i = 0; i &lt; 10; i++)
+{
+Serial.write(i);
+delay(200);
+}
+</code></pre>
+<p>Ez sorrendben ki fogja írni 0-9 számokat és mindössze 5 sor kód. Ha az első 100 számot szeretnénk kiíratni - egy hosszú, de ismétlődő folyamat - akkor is ugyanígy nézne ki a kód, csak a feltétel részt kéne átírni. Ez sokkal átláthatóbb, mint 100 sorban ugyanazt minimális változtatással leírni.</p>
+<p>Ahogy volt már róla szó, <a href='#Tömbök'>tömbök</a>et kifejezetten hasznos a ciklusokkal, egész pontosan a for ciklussal használni. Nagyon egyszerű pl. n darab elem kezelése (keresés, sorbarendezés, sorban kiírás stb.).</p>
+<pre class='arduino'><code>
+int[] tomb = int[10]; //Létrehozunk egy 10 elemű tömböt
+for(i = 0; i &lt; 10; i++)
+{
+tomb[i] = i * 2; //Egy sor kódból értéket adtunk 10 különböző változónak!
+}
+</code></pre>
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+<h2 id='Metódusok'>Metódusok</h2>
+<p>Sokszor hasznos tud lenni, ha egy adott kódrészletet többször is fel tudunk használni. Például ha egy programban valami tevékenységet akarunk jelezni, villogtathatjunk egy ledet:</p>
+<pre class='arduino'><code>
+digitalWrite(LED, HIGH);
+delay(500);
+digitalWrite(LED, LOW);
+</code></pre>
+<p>Az előző kódrészlettel azonban van egy nagy probléma: minden egyes villagtatási helyre be kell másolni. Ha utólag rájövünk, hogy pl. más sebességgel akarunk villogtatni, akkor ezt aránylag sok helyen kell módosítanunk. Ehelyett létrehozhatunk <i>metódusokat</i>:<p>
+<pre class='arduino'><code>
+void villog(int ido, int szam) //visszatérési érték, név, paraméterek
+{
+int i;                         //
+for(i = 0; i@ &lt; szam; i++)     //
+{                              //
+digitalWrite(LED, HIGH);   // Metódustörzs
+delay(ido);                //
+digitalWrite(LED, LOW);    //
+}                              //
+}
+</code></pre>
+<p>Egy metódusnak van <i>neve</i>, amivel hovatkozhatunk rá, <i>törzse</i> ahova a kódot írjuk, <i>paraméterei</i> és <i>visszatérési értéke</i>. Ennek a metódusnak a neve villog, visszatérési értéke void, van két paramétere (ido, és szam, mindkettő egy int), törzse pedig a blokkban található. Az ismert <i>setup</i> és <i>loop</i> szintén metódusok (void visszatérési érték, paraméter nélkül). Ezeket, mint már megtanultuk, muszáj definiálni.</p>
+<p>Most egy olyan metódust hoztunk létre, amelynek nincs <i>visszatérési értéke</i>. Létrehozhatunk olyan metódusokat is, amelyek valamilyen értéket adnak vissza:<p>
+<pre class='arduino'><code>
+int negyzet(int a)
+{
+return a * a;
+}
+</code></pre>
+<p>Ez a metódus egy int értéket ad vissza (a <i>void</i> egy speciális visszatérési értéket, a semmilyen értéket jelöli). A metódusban használhatunk változókat, elégazásokat és ciklusokat is, de egy nem-void metódusnak mindig vissza kell adnia egy értéket a <i>return</i> paranccsal. A megírt metódusokat így használhatjuk:
+<pre class='arduino'><code>
+int i;
+
+...
+
+void loop()
+{
+...
+if(negyzet(i) == 25)
+{
+villog(300, 1);
+}
+else
+{
+i = negyzet(10); //i = 100
+villog(i, 3);
+}
+...
+}
+</code></pre>
+<p>Voltaképpen ha belegondolunk, az alapprogramunk is pont így működik, a <i>setup</i> és <i>loop</i> metódusokat így használjuk:</p>
+<pre class='arduino'><code>
+//PROGRAM START
+setup();
+while(true) //Örökké futó ciklus
+{
+loop();
+}
+//PROGRAM STOP
+</code></pre>
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+<h2 id='Fejlett-kezelés'>Fejlett kezelés</h2>
+<div class='info box'>Ezek a lehetőségek nélkül is teljes mértékben programozható az Arduino - de ha megértjük és használjuk őket gyorsabb és jobb minőségű kódot tudunk írni!</div>
+<h3 id='Mutatók'>Mutatók</h3>
+<p>A <i>mutatók</i>, vagy más néven pointerek - ahogy nevük is mutatják - a memória egy bizonyos részére mutatnak. Nehéz elképzelni? itt egy kis magyarázat.<p/>
+<p>Bármilyen számítógép memóriája voltaképpen egy nagyon hosszú tömb. Ebbe a tömbe tudunk változókat létrehozni, amelyeknek innentől kezdve a számítógép nyelvén lesz egy memóriacíme. Például ha létrehozunk egy alma változót, az például kerülhet a 12-es helyre:</p>
+<pre>
+Változó                                                               alma
+                                                                       ▼
+Érték    |    │    │    │    │    │    │    │    │    │    │    │    │    │    │    │    │
+         └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+Cím        00   01   02   03   04   05   06   07   08   09   10   11   12   13   14   15</pre>
+<p>Ennek a változónak aztán tudunk egy értéket is adni, pl. ez az érték legyen 40.</p>
+<pre>
+Változó                                                               alma
+                                                                       ▼
+Érték    |    |    |    |    |    |    |    |    |    |    |    |    | 40 |    |    |    |
+         └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+Cím        00   01   02   03   04   05   06   07   08   09   10   11   12   13   14   15</pre>
+  <p>Maga a számítógép az <i>alma</i> névről sosem fog tudni. Neki csak úgy lesz ismert, mint <b>a valami ami a 12-es helyen van</b>.</p>
+<p>A pointer is egy sima egyszerű változó. Ha létrehozzuk a <i>mutat</i> mutatónkat, ugyanúgy egy memória-helyre fog kerülni és ugyanúgy lehet neki értéke, pl. 12</p>
+<pre>
+Változó                *mutat                                         alma
+                          ▼                                            ▼
+Érték    |    │    │    │ 12 │    │    │    │    │    │    │    │    │ 40 │    │    │    │
+         └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+Cím        00   01   02   03   04   05   06   07   08   09   10   11   12   13   14   15</pre>
+  <p>Ha most lefuttatnánk a következő kódot valami nagyon érdekes történne:</p>
+<pre class='arduino'><code>
+int korte = mutat; //korte = 40
+</code></pre>
+ <p>Mi is történt? Az korte nevű változó értéke 40 lett - pedig a mutat változóé csak 12!</p>
+<p>Pointerekben ugyanis mindig egy memóriacímet tárolunk. A változó értéke azért lett 30, mert a mutatóban tárolt érték  - 12 - memóriacímen éppen ez az érték volt.</p>
+<pre>
+Változó   korte        *mutat                                         alma
+           ▼              ▼                                            ▼
+Érték    | 40 │    │    │ 12 │    │    │    │    │    │    │    │    │ 40 │    │    │    │
+         └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
+Cím        00   01   02   03   04   05   06   07   08   09   10   11   12   13   14   15
+           ▲│             ▲│                                           ▲│
+           │└─────────────┘└───────────────────────────────────────────┘│
+           └────────────────────────────────────────────────────────────┘</pre>
+
+<h3 id='Portok'>Portok</h3>
+<p>Bár az Arudino környezet nagyon megkönnyíti a digitális ki- és bemenetek kezelését (ld. <i>digitalWrite</i>), a Arduino nem más, mint egy túlhype-olt mikrokontroller. Leggyakrabban egy Atmel gyártmányú ATMega 32.</p>
+<p>A mikrokontrollereknél szinte kivétel nélkül a legkisebb be- és kiviteli egység a <i>port</i>. Ezek általában 8 lábat fognak össze, mivel a mikrokontroller által lezelt legkisebb adatmennyiség 8 bit, azaz 1 bájt. Ez ugye felvet pár kérdést, például valószínűleg a legfontosabb ezek közül:</p>
+<p><b>Hogyan tudok akkor csak egyetlen lábat állítani?</b></p>
+<p>Egyszerű: bitműveletekkel. Leggyakrabban ún. maszkolást szoktunk használni. Ennek lényege, hogy a hozzáadott értéket vagy hozzá VAGY-oljuk vagy ÉS-eljük a meglévő értékhez.</p>
+
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+<pre class='arduino'><code>
+char port = 0x00010010
+char mask = 0x10000000
+
+PORTB = port | mask; //0x10010010
+</code></pre>
+<p>Az Arduino portjait a <i>PORTA</i>, <i>PORTB</i>, <i>PORTC</i> és <i>PORTD</i> változókkal lehet elérni. Ezeket az Arduino rendszer előre létrehozza, nekünk nem kell (és nem is lehetésges) definiálni.</p>
+<table class='table'>
+<tr>
+<th>PORTA</th>
+<th>PORTB</th>
+<th>PORTC</th>
+<th>PORTD</th>
+</tr>
+<tr>
+<td></td>
+<td>8<br>9<br>10<br>11<br>12<br>13</td>
+<td>A0<br>A1<br>A2<br>A3<br>A4<br>A5</td>
+<td>0<br>1<br>2<br>3<br>4<br>5<br>6<br>7</td>
+</tr>
+</table>
+
+<!------------------------------------------------------------------------------------------------->
+
+<h2 id='Függvénykészlet'>Az Arduino beépített függvénykészlete</h2>
+<ul>
+<li>Alacsony szintű funkcionalitás</li>
+<ul>
+<li><a href='#pinMode'><code>pinMode</code></a> - Beállít egy lábat bemeneti vagy kimeneti lábra</li>
+<li><a href='#digitalWrite'><code>digitalWrite</code></a> - Beállít egy kimenetet magas vagy alacsony szintre</li>
+<li><a href='#digitalRead'><code>digitalRead</code></a> - Beolvas egy bemenetről egy logikai értéket</li>
+<li><a href='#delay'><code>delay</code></a> - Szünetelteti a program végrehajtását adott ideig</li>
+<li><a href='#analogRead<'><code>analogRead</code></a> - Beolvas egy feszültségértéket egy analóg bemeneten</li>
+<li><a href='#random<'><code>random</code></a> - Generál egy véletlenszerű számot</li>
+<li><a href='#randomSeed<'><code>randomSeed</code></a> - Beállítja, hogyan működjön a random függvény</li>
+</ul>
+<li>Soros portos kommunikáció</li>
+<ul>
+<li><a href='#Serial.begin'><code>Serial.begin</code></a> - Elindítja a soros portos kommunikációt az 1-es és 2-es lábakon ill. USB-n</li>
+<li><a href='#Serial.write'><code>Serial.write</code></a> - Adat írható vele a soros portra</li>
+<li><a href='#Serial.read'><code>Serial.read</code></a> - Beolvas egy karaktert a soros portról, ha van bejövő üzenet</li>
+<li><a href='#Serial.available'><code>Serial.available</code></a> - Visszaadja hány karakter várakozk olvasásra a soros porton</li>
+<li><a href='#Serial.readString'><code>Serial.readString</code></a> - Beolvas egy egész szöveget sor vége jelig</li>
+</ul>
+<li>Kijelző kezelés</li>
+<ul>
+<li>HD44780 karakteres kijelző</li>
+<ul>
+<li><a href='#LiquidCrystal'><code>LiquidCrystal</code></a> - A kijelzőhöz használt változótípus</li>
+<li><a href='#LiquidCrystal.begin'><code>LiquidCrystal.begin</code></a> - Elindítja a kijelzőt</li>
+<li><a href='#LiquidCrystal.clear'><code>LiquidCrystal.clear</code></a> - Törli a kijelző tartalmát</li>
+<li><a href='#LiquidCrystal.home'><code>LiquidCrystal.home</code></a> - A kurzort a bal felső sarokba rakja</li>
+<li><a href='#LiquidCrystal.setCursor'><code>LiquidCrystal.setCursor</code></a> - Beállítja a kurzort egy tetszőleges helyre</li>
+<li><a href='#LiquidCrystal.createChar'><code>LiquidCrystal.createChar</code></a> - Létrehoz egy egyedi karaktert</li>
+
+<li><a href='#LiquidCrystal.scrollDisplayLeft'><code>LiquidCrystal.scrollDisplayLeft</code></a> - Balra eltolja a kijelző tartalmát</li>
+<li><a href='#LiquidCrystal.scrollDisplayRight'><code>LiquidCrystal.scrollDisplayRight</code></a> - Jobbra eltolja a kijelző tartalmát</li>
+
+<li><a href='#LiquidCrystal.print'><code>LiquidCrystal.print</code></a> - Megjelenít egy szöveget a kijelzőn</li>
+<li><a href='#LiquidCrystal.write'><code>LiquidCrystal.write</code></a> - Megjelenít egy szöveget a kijelzőn</li>
+
+<li><a href='#LiquidCrystal-egyebek'>Egyéb LCD függvények</a></li>
+</ul>
+<li>OLED grafikus kijelző</li>
+<ul>
+<li>Még semmi :(</li>
+</ul>
+</ul>
+<li>Flash memória</li>
+<ul>
+<li><a href='#EEPROM.read'><code>EEPROM.read</code></a> - Kiolvas egy bájtot a flash memóriából</li>
+<li><a href='#EEPROM.write'><code>EEPROM.write</code></a> - Beír egy bájtot a flash memóriába</li>
+<li><a href='#EEPROM.get'><code>EEPROM.get</code></a> - Kiolvas egy változót a flash memóriából</li>
+<li><a href='#EEPROM.put'><code>EEPROM.put</code></a> - Beír egy változót a flash memóriába</li>
+<li><a href='#EEPROM.update'><code>EEPROM.update</code></a> - Beír egy bájtot a flash memóriába, ha az éppen aktuális bájt eltérő</li>
+</ul>
+<li>WiFi (csak ESP8266)</li>
+<ul>
+<li><a href='#WiFi.mode'><code>WiFi.mode</code></a> - Beállítja a wifis modul szerepét.</li>
+<li><a href='#WiFi.begin'><code>WiFi.begin</code></a> - Elindítja a wifis kommunikációt a megadott routeren.</li>
+<li><a href='#WiFi.disconnect'><code>WiFi.disconnect</code></a> - Lekapcsolódik a wifis hálózatokról a modul.</li>
+<li><a href='#WiFi.scanNetworks'><code>WiFi.scanNetworks</code></a> - Elérhető kapcsolódási pontokat keres</li>
+<li><a href='#WiFi.status'><code>WiFi.status</code></a> - Visszaadja a wifi kapcsolat állapotát</li>
+<li><a href='#WiFi.SSID'><code>WiFi.SSID</code></a> - Visszaadja az adott indexű kapcsolódási pont nevét.</li>
+<li><a href='#WiFi.localIP'><code>WiFi.localIP</code></a> - Visszaadja a jelenlegi wifis kapcsolat IP-címét.</li>
+<li><a href='#WiFi.softAP'><code>WiFi.softAP</code></a> - Létrehoz egy kapcsolódási pontot.</li>
+<li><a href='#WiFi.softAPgetStationNum'><code>WiFi.softAPgetStationNum</code></a> - Visszaadja a kapcsolódási ponthoz felcsatlakozott eszközök számát.</li>
+</ul>
+</ul>
+<p class='noprint'><a href='#'>↑ Vissza az elejére</a></p>
+
+<h3 id='pinMode'><code>pinMode</code></h3>
+<p>Beállít egy lábat bemeneti vagy kimeneti lábra.</p>
+<h5>Szintaxis</h4>
+<pre class='arduino'><code>
+void pinMode(int pin, DIRECTION dir)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+pinMode(13, INPUT);
+pinMode(5, OUTPUT);
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='digitalWrite'><code>digitalWrite</code></h3>
+<p>Beállít egy kimenetet magas vagy alacsony szintre.</p>
+<h5>Szintaxis</h4>
+<pre class='arduino'><code>
+void digitalWrite(int pin, LEVEL value)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+digitalWrite(13, HIGH);
+digitalWrite(5, LOW);
+pinMode(2, 0);
+pinMode(7, 1);
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='digitalRead'><code>digitalRead</code></h3>
+<p>Beolvas egy bemenetről egy logikai értéket.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+int digitalRead(int pin)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+int bemenet = -1;
+bemenet = digitalRead(5); //a 'bemenet' változóba beolvassuk az 5-ös láb logikai szintjét - 0 vagy 1 lesz
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='delay'><code>delay</code></h3>
+<p>Szünetelteti a program végrehajtását adott ideig.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void delay(int millisec)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+digitalWrite(5, LOW);   //az 5-ös lábon megjelenik az alacsony (0V) jelszint
+delay(500);             //Várunk 500 ezredmásodpercet
+digitalWrite(5, HIGH); //az 5-ös lábon megjelenik az magas (+5V) jelszint
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='analogRead<'><code>analogRead</code></h3>
+<p>Beolvaos egy feszültségértéket egy analóg bemeneten.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+int analogRead(int pin)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+int a = -1;
+analogRead(6);   //visszaad egy értéket, ahol 0 = 0V, 1023 = +5V
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='random<'><code>random</code></h3>
+<p>Generál egy véletlenszerű számot a megadott minimum és maximum között.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+int random(int maximum)
+int random(int minimum, int maximum)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+int r = random(30); //Visszaad egy véletlenszerű számot 0 és 30 között
+int veletlen = random(5, 10); //Visszaad egy véletlenszerű számot 5 és 10 között
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='randomSeed<'><code>randomSeed</code></h3>
+<p>Beállítja hogyan működjön a <a href='#random'>random</a> függvény.</p>
+<p>A random függvény egy ún. ál-véletlen számot generál. Ezért érdemes mindig valami biztosan véletlenszerű bemenetet adni neki. Ha van egy nem használt analóg bemenetünk, akkor az lebegni fog, azaz ha beolvasunk rajta egy értéket biztosan teljesen véletlenszerű lesz. Így biztosan valóban véletlenszerű számot tudunk majd kapni</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void randomSeed(int bemenet)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+randomSeed(analogRead(0)); //Biztosan véletlenszerű számunk lesz most már a randomokból!
+int r = random(0, 10);
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<!-- ####################################################################################### -->
+
+<h3 id='Serial.begin'><code>Serial.begin</code></h3>
+<p>Elindítja a soros portos kommunikációt az 1-es és 2-es lábakon ill. USB-n.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void Serial.begin(int speed)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+Serial.begin(9600);   //9600 baudos soros kommunikációt indít el. 9600 Az alapértelmezett.
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='Serial.write'><code>Serial.write</code></h3>
+<p>Adat írható vele a soros portra.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void Serial.write(char c)
+void Serial.write(String s)
+void Serial.write(char[] buffer, int length)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+char c[32];
+
+...
+
+Serial.write('a'); //Kiírja a soros portra az a karaktert
+Serial.write("Szoveg");//Kiírja a soros portra a Szoveg karaktereket
+Serial.write(c, 10);//Kiírja a soros portra a c tömb első 10 karakterét.
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+ 
+<hr>
+
+<h3 id='Serial.read'><code>Serial.read</code></h3>
+<p> Beolvas egy karaktert a soros portról, ha van bejövő üzenet.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+char Serial.read()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+char c;
+
+...
+
+if(Serial.available() > 0) //Megnézzük előbb, hogy van-e mit olvasni
+{
+c = Serial.read(); //Ha van, a legelső karaktert kiolvassuk
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='Serial.available'><code>Serial.available</code></h3>
+<p>Visszaadja hány karakter várakozik olvasásra a soros porton.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+int Serial.available()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+char c;
+
+...
+
+if(Serial.available() > 0) //Megnézzük előbb, hogy van-e mit olvasni
+{
+c = Serial.read(); //Ha van, a legelső karaktert kiolvassuk
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='Serial.readString'><code>Serial.readString</code></h3>
+<p>Beolvas egy egész szöveget sor vége jelig.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+String Serial.readString()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+String s;
+
+...
+
+if(Serial.available() > 0) //Megnézzük előbb, hogy van-e mit olvasni
+{
+s = Serial.readString(); //Sor vége jelig vagy 0-ás kódú karakterig olvasunk
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<!-- ####################################################################################### -->
+
+<h3 id='LiquidCrystal'><code>LiquidCrystal</code></h3>
+<p>A kijelzőhöz használt változótípus.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+LiquidCrystal(int rs, int enable, int d4, int d5, int d6, int d7)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+//LCD RESET pin 12-es lábon
+//LCD ENABLE pin 11-es lábon
+//LCD READ/WRITE pin 10-es lábon
+//LCD D4-D7 pin 5-4-3-2-es lábakon
+LiquidCrystal lcd(12, 11, 10, 5, 4, 3, 2);
+
+...
+
+void setup()
+{
+lcd.begin(16, 2); //Az LCD kijelző 16 oszlopos, 2 soros
+lcd.print("Szia!");
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.begin'><code>LiquidCrystal.begin</code></h3>
+<p>Elindítja a kijelzőt.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.begin(int columns, int rows)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+LiquidCrystal lcd(12, 11, 10, 5, 4, 3, 2);
+
+...
+
+void setup()
+{
+lcd.begin(16, 2); //Az LCD kijelző 16 oszlopos, 2 soros
+lcd.print("Szia!");
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.clear'><code>LiquidCrystal.clear</code></h3>
+<p>Törli a kijelző tartalmát.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.clear()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.print("Szia!");
+delay(1000);
+lcd.clear(); //A kijelző újra üres
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.home'><code>LiquidCrystal.home</code></h3>
+<p>A kurzort a bal felső sarokba rakja.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.home()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.print("Szia!");
+lcd.home();
+lcd.print("s"); //A kijelzőn kisbetűvel "szia!" szerepel
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.setCursor'><code>LiquidCrystal.setCursor</code></h3>
+<p>Beállítja a kurzort egy tetszőleges helyre.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.setCursor(int column, int row)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.print("Szia!");
+lcd.setCursor(0, 1); //A kurzort a második sor elejére rakjuk
+lcd.print("Hello");
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.createChar'><code>LiquidCrystal.createChar</code></h3>
+<p>Létrehoz egy egyedi karaktert.</p>
+<p>Összesen nyolc (0-7) karakter hozható létre, mindegyik karakter 5 pixel széles és 7 pixel magas.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.createChar(int  num, char[] data)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+byte data[8] =  //A nullák üres pixelek, az egyesek kirajzolt pixelek lesznek
+{        // ┌─────────┐
+B00000, // │▯▯▯▯▯│
+B01010, // │▯▮▯▮▯│
+B01010, // │▯▮▯▮▯│
+B00000, // │▯▯▯▯▯│ Megpróbáltuk ábrázolni a létrehozott karakter, több-kevesebb sikerel =)
+B10001, // │▮▯▯▯▮│
+B01110, // │▯▮▮▮▯│
+B00000, // │▯▯▯▯▯│
+};        // └─────────┘
+
+lcd.createChar(0, data); //A nulladik speciális karakter helyre létrehozzuk a data tömbben lerajzolt karaktert
+lcd.setCursor(0, 1); //A kurzort a második sor elejére rakjuk
+lcd.print("Szia! ");
+lcd.write(byte(0); //Kiírjuk a nulladik speciális karaktert.
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.scrollDisplayLeft'><code>LiquidCrystal.scrollDisplayLeft</code></h3>
+<p>Balra eltolja a kijelző tartalmát.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.scrollDisplayLeft()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.print("Szia!");
+lcd.scrollDisplayLeft(); //A kijelzőn "zia!" szerepel
+lcd.scrollDisplayRight(); //A kijelzőn " zia!" szerepel
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.scrollDisplayRight'><code>LiquidCrystal.scrollDisplayRight</code></h3>
+<p>Jobbra eltolja a kijelző tartalmát.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.scrollDisplayRight()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.print("Szia!");
+lcd.scrollDisplayLeft(); //A kijelzőn "zia!" szerepel
+lcd.scrollDisplayRight(); //A kijelzőn " zia!" szerepel
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.print'><code>LiquidCrystal.print</code></h3>
+<p>Megjelenít egy szöveget a kijelzőn.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.print(String s)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.print("Szia!");
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal.print'><code>LiquidCrystal.write</code></h3>
+<p>Megjelenít egy karaktert a kijelzőn.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.write(char c)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+lcd.write('c');
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='LiquidCrystal-egyebek'>Egyéb LCD függvények</h3>
+<p>A kijelzőt még sok egyébb egyszerű függvénnyel lehet vezérelni, ezek (a teljesség igénye nélkül) a következők:</p>
+<ul>
+<li><code>cursor</code>: Megjeleníti a kurzort</li>
+<li><code>noCursor</code>: Elrejti a kurzort</li>
+<li><code>blink</code>: Villogtatja a kurzort</li>
+<li><code>noBlink</code>: Folyamatosan mutatja a kurzort</li>
+<li><code>display</code>: Megjeleníti a kijelzőre írt adatokat</li>
+<li><code>noDisplay</code>: Elrejt mindent a kijelzőn</li>
+<li><code>autoscroll</code>: Ha feltöltődött az egyik sor, a kovetkezőbe írja a követkető karaktert</li>
+<li><code>noAutoscroll</code>: Egy üzenetet mindig ugyanabba a sorba ír, még ha ki is lóg a képernyőről</li>
+</ul>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void LiquidCrystal.cursor()
+
+void LiquidCrystal.noKursor()
+
+void LiquidCrystal.blink()
+
+void LiquidCrystal.noBlink()
+
+void LiquidCrystal.display()
+
+void LiquidCrystal.noDisplay()
+
+void LiquidCrystal.autoscroll()
+
+void LiquidCrystal.noAutoscroll()
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<!-- ####################################################################################### -->
+
+<h3 id='EEPROM.read'><code>EEPROM.read</code></h3>
+<p>Beír egy bájtot a flash memóriába.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+char EEPROM.red(int address)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+char mentett;
+EEPROM.write(12, 50);
+mentett = EEPROM.read(12); //mentett == 50
+mentett = EEPROM.read(13); //Ha a 13-as címen még nem volt semmi, az érték 255 lesz
+
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='EEPROM.write'><code>EEPROM.write</code></h3>
+<p>Beír egy bájtot a flash memóriába.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void EEPROM.write(int address, char value)
+</code></pre>
+<div class='info box'>A flash memória sok írástól tönkremegy. Használt inkább az update függvényt!</div>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+char mentett;
+EEPROM.write(12, 50);
+mentett = EEPROM.read(12); //mentett == 50
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='EEPROM.get'><code>EEPROM.get</code></h3>
+<p>Kiolvas egy változót a flash memóriából.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void EEPROM.get(int address, mixed data)
+</code></pre>
+<div class='info box'>data típusa bármelyik primitív lehet, vagy egy saját struct.</div>
+<div class='important box'>A String <b>nem</b> primitív típus!</div>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+float mentett;
+float betolt;
+mentett = 1.3;
+EEPROM.put(15, mentett);
+EEPROM.get(15, betolt); //betolt == 50
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='EEPROM.put'><code>EEPROM.put</code></h3>
+<p>Beír egy változót a flash memóriába.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void EEPROM.put(int address, mixed data)
+</code></pre>
+<div class='info box'>data típusa bármelyik primitív lehet, vagy egy saját struct.</div>
+<div class='important box'>A String <b>nem</b> primitív típus!</div>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+float mentett;
+float betolt;
+mentett = 1.3;
+EEPROM.put(15, mentett);
+EEPROM.get(15, betolt); //betolt == 50
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='EEPROM.update'><code>EEPROM.update</code></h3>
+<p>Beír egy bájtot a flash memóriába, ha az éppen aktuális bájt eltérő.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void EEPROM.update(int address, char data)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+char mentett;
+EEPROM.update(12, 50); //Beírja az 50-es értéket
+EEPROM.update(12, 50); //Azonos érték a címen, nem csinál semmit
+mentett = EEPROM.read(12); //mentett == 50
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<!-- ####################################################################################### -->
+
+<h3 id='WiFi.mode'><code>WiFi.mode</code></h3>
+<p>Beállítja a wifis modul szerepét.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void WiFi.mode(int mode)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+WiFi.mode(WIFI_STA);
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.begin'><code>WiFi.begin</code></h3>
+<p>Elindítja a wifis kommunikációt a megadott routeren.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void WiFi.begin(char* SSID, char* pass)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+WiFi.begin("Router", "Jelszo1234");
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.disconnect'><code>WiFi.disconnect</code></h3>
+<p>Lekapcsolódik a wifis hálózatokról a modul.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void WiFi.disconnect()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+WiFi.begin("Router", "Jelszo1234"); //csatlakozás
+
+...
+
+WiFi.disconnect(); //Lezárás
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.begin'><code>WiFi.begin</code></h3>
+<p>Elindítja a wifis kommunikációt a megadott routeren.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void WiFi.begin(char* SSID, char* pass)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+WiFi.begin("Router", "Jelszo1234");
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.scanNetworks'><code>WiFi.scanNetworks</code></h3>
+<p>Elérhető kapcsolódási pontokat keres.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+byte WiFi.scanNetworks()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+Serial.begin(9600);
+int networks = WiFi.scanNetworks();
+for(int i = 0; i < networks; i++)
+{
+//Kilistázzuk a megtalált wifis hálózatokat
+Serial.print(WiFi.SSID(i));
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.status'><code>WiFi.status</code></h3>
+<p>
+Visszaadja a wifis kapcsolat állapotát. A visszaadott értéket egy speciális integer, amihez konstansok vannak hozzárendelve.
+<ul>
+<li><code>WL_CONNECTED</code>: Az eszköz felcsatlakozott a hálózatra</li>
+<li><code>WL_IDLE_STATUS</code>: Az eszköz éppen kapcsolódni próbál a hálózathoz</li>
+<li><code>WL_CONNECT_FAILED</code>: A kapcsolódás sikertelen több próbálkozás után is</li>
+<li><code>WL_CONNECTION_LOST</code>: Az eszköz leszakadt a hálózatról (nem tudatos lecsatlakozás)</li>
+<li><code>WL_DISCONNECTED</code>: Az eszköz tudatosan lecsatlakozott a hálózatról</li>
+</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+WiFiStatus WiFi.status()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+WiFi.begin("Router", "Jelszo1234");
+if(WiFi.status() != WL_CONNECTED)
+{
+//Várunk amíg nem tudtunk csatlakozni
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.SSID'><code>WiFi.SSID</code></h3>
+<p>Visszaadja az adott indexű kapcsolódási pont nevét.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+char* WiFi.SSID(int id)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+Serial.begin(9600);
+int networks = WiFi.scanNetworks();
+for(int i = 0; i < networks; i++)
+{
+//Kilistázzuk a megtalált wifis hálózatokat
+Serial.print(WiFi.SSID(i));
+}
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.localIP'><code>WiFi.localIP</code></h3>
+<p>Visszaadja a jelenlegi wifis kapcsolat IP-címét.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+IPAddress WiFi.localIP()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+Serial.begin(9600);
+WiFi.begin("Router", "Jelszo1234");
+if(WiFi.status() != WL_CONNECTED)
+{
+//Várunk amíg nem tudtunk csatlakozni
+}
+Serial.println(WiFi.localIP());
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.softAP'><code>WiFi.softAP</code></h3>
+<p>Létrehoz egy kapcsolódási pontot.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+void WiFi.softAP(char* ssid, char* password)
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+Serial.begin(9600);
+WiFi.softAP(ssid, password);
+
+IPAddress myIP = WiFi.softAPIP();
+Serial.println(myIP);
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<hr>
+
+<h3 id='WiFi.softAPgetStationNum'><code>WiFi.softAPgetStationNum</code></h3>
+<p>Létrehoz egy kapcsolódási pontot.</p>
+<h5>Szintaxis</h5>
+<pre class='arduino'><code>
+int WiFi.softAPgetStationNum()
+</code></pre>
+<h5>Használat</h5>
+<pre class='arduino'><code>
+Serial.begin(9600);
+WiFi.softAP(ssid, password);
+
+Serial.println(WiFi.softAPgetStationNum());
+</code></pre>
+<p class='noprint'><a href='#Függvénykészlet'>↑ Vissza a függvényekhez</a></p>
+
+<!------------------------------------------------------------------------------------------------->
+
+<h2 id='Kódrészletek'>Hasznos kódrészletek, példaprogramok</h2>
+
+<h3>Első program - Villogó</h3>
+<p>A kapcsolás egyszerűen csak egy ledet villogtat.</p>
+<pre class='arduino'><code>
+void setup()
+{
+pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+digitalWrite(13, LOW);
+delay(300);
+digitalWrite(13, HIGH);
+delay(300);
+}
+</code></pre>
+
+<h3>Egyszerű logikai típus</h3>
+<p>Az előfeldolgozót használva létre tudunk hozni egy ál-típust logikai műveletekhez.</p>
+<pre class='arduino'><code>
+#define BOOL char
+#define TRUE 1
+#define FALSE 0
+</code></pre>
+<p>Példa a használatra:</p>
+<pre class='arduino'><code>
+BOOL logikai = FALSE;
+BOOL masik = TRUE;
+logikai = digitalRead(be);
+if(logikai && masik)
+{
+...
+}
+</code></pre>
+
+<h3>Knight-Rider futófény 8 leddel</h3>
+<p>Az Arduino <a href='#Portok'>portjaihoz</a> hozzá tudunk férni ugyanúgy, mint egy egyszerű AVR mikrokontroller protjaihoz. Ez néha nagyon leegyszerűíti a dolgunkat, főleg ha több kimenetet akarunk írni egybefüggően.</p>
+<pre class='arduino'><code>
+int i = 1;
+int irany = 0;
+
+void setup()
+{
+pinMode(1, OUTPUT);
+pinMode(2, OUTPUT);
+pinMode(3, OUTPUT);
+pinMode(4, OUTPUT);
+pinMode(5, OUTPUT);
+pinMode(6, OUTPUT);
+pinMode(7, OUTPUT);
+pinMode(8, OUTPUT);
+}
+
+void loop()
+{
+if(i == 1) //00000001
+{
+irany = 0;
+}
+else if(i == 128) //10000000
+{
+irany = 1;
+}
+
+if(irany == 0)
+{
+i = i &lt;&lt; 1;
+}
+else
+{
+i = i &gt;&gt; 1;
+}
+PORTD = i; //PORTD az 1-8 lábakat egyszerre állítjuk be
+delay(200);
+}
+</code></pre>
+
+<h3>Nagyon egyszerű voltmérő</h3>
+<p>Az Arduino egyik analóg bemenetén másodpercenként beolvas egy értéket é elküldi soros porton.</p>
+<pre class='arduino'><code>
+void setup()
+{
+pinMode(13, INPUT);
+Serial.begin(9600);
+}
+
+void loop()
+{
+int i = analogRead(13); //Beolvasunk egy 0-255 közötti értéket
+float f = (float)i * 0.0196; //Átalakítjuk egy 0-5 közötti értékre
+
+string s = String(f) + " V"; //Létrehozunk belőle gy szöveget pl. "1.46 V"
+Serial.write(s); //Kiírjuk a szöveget soros portra
+
+delay(1000);
+}
+</code></pre>
+
+<h3>Stringből szám</h3>
+<p>Egy szövegből próbál számot csinálni.</p>
+<pre class='arduino'><code>
+int parseNumber(String s)
+{
+  int buff[6];
+  int charVal;
+  
+  int strCount = s.length();
+  int buffCount = 0;
+  
+  char c = 0;
+  int result = 0;
+
+  //Beolvassuk a string összes karakterét
+  for(int i = 0; i < strCount; i++)
+  {
+//Ha a szöveg több karakterből áll, mint amennyit kezelni tudunk, kilpünk
+    if(buffCount >= 6)
+    {
+      break;
+    }
+
+//A 0 karaktere 48, a 9-é 57 - ennyivel csökkentjük a karakterek számszerű értékét
+    charVal = s[i];
+    if(charVal >= 48 && charVal <= 57)
+    {
+      buff[buffCount] = charVal - 48;
+      buffCount++;
+    }
+  }
+
+  //Visszafelé végigmegyünk a beolvasott számokot és helyiértéknek megfelelően megszorozzuk
+  for(int i = 0; i < buffCount; i++)
+  {
+    int j = buffCount - i - 1;
+
+    result = result + (buff[j] * pow(10, i));
+  }
+
+  return result + 1;
+}
+</code></pre>

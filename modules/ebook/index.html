@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html style="overflow: visible;" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <title>Arduino segédlet</title>
+
+	<link rel="stylesheet" href="../common/css/bootstrap.css">
+	<link rel="stylesheet" href="../common/css/thedocs.css">
+	<link rel="stylesheet" href="../common/css/custom.css">
+	<link rel="stylesheet" href="../common/css/css.css">
+
+	<link rel="stylesheet" href="../common/highlight/arduino-light.css">
+	<script src="../common/highlight/highlight.pack.js"></script>
+</head>
+
+<body data-spy="scroll" data-target=".sidebar" data-offset="200">
+    <!-- Sidebar -->
+    <aside class="sidebar sidebar-boxed sidebar-dark ps ps--theme_default" data-ps-id="9ce4ebd0-198a-e56a-ef0c-6c04106825fc">
+
+      <span class="sidebar-brand">GanzDoksik</span>
+
+      <ul class="nav sidenav dropable">
+		<!-- ##### -->
+      </ul>
+
+		<div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+			<div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+		</div>
+		<div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+			<div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+		</div>
+	</aside>
+    <!-- END Sidebar -->
+
+
+    <header class="site-header navbar-transparent">
+
+
+      <!-- Banner -->
+      <div class="banner auto-size" style="background-color: #5cc7b2">
+        <div class="container-fluid text-white">
+          <h1><strong>Arduino</strong> segédlet</h1>
+          <h5>Segédanyag az Arduino fejlesztői panelhez és programozásához.</h5>
+        </div>
+      </div>
+      <!-- END Banner -->
+
+    </header>
+
+    <main class="container-fluid">
+
+      <!-- Main content -->
+      <article id='main' class="main-content" role="main">
+		<!-- ##### -->
+      </article>
+      <!-- END Main content -->
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container-fluid">
+        <a id="scroll-up" href="#"><i class="fa fa-angle-up"></i></a>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <p>Ganz Ifjúsági Műhely, 2017-2018. - v2.0</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <ul class="footer-menu"></ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- END Footer -->
+
+    <!-- Scripts -->
+	
+<!--
+	<script src="../common/js/theDocs.js"></script>
+    <script src="../common/js/custom.js"></script>
+ -->	
+	<script src="../common/js/jquery.min.js"></script>
+	<script src="markdown-parser.js"></script>
+	<script>
+		$.get('arduino.gob', function(data)
+		{
+			$('#main').html(parse(data));			
+			hljs.initHighlightingOnLoad();
+		});
+	</script>
+</body>
+</html>

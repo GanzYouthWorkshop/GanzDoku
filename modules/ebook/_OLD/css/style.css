@@ -1,0 +1,293 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:600,400,300&subset=latin,latin-ext);
+@import url(./icon/font.css);
+
+html, body
+{
+	font-family: 'Open Sans';
+	color: #222222;
+	margin: 0;
+	padding: 0;
+	background-color: #EDECE4;
+}
+
+header
+{
+	position: absolute;
+	top: 16px;
+	left: 16px;
+	z-index: 100;
+}
+
+header img
+{
+	vertical-align: middle;
+}
+
+header h1
+{
+	margin: 0;
+	color: #4C4C4C;
+	font-size: 1.7em;
+}
+
+#load
+{
+	text-align: center;
+	position: absolute;
+	left: 86px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+#books, #notes
+{
+	position: fixed;
+	top: 80px;
+	bottom: 16px;
+	width: 283px;
+	border: 1px solid #E0E0E0;
+	padding: 8px;
+	background-color: #FFFFFF;
+	left: 16px;
+
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+#notes
+{
+	display: none;
+	z-index: 2;
+}
+
+#books a, #notes a
+{
+	display: block;
+	font-weight: 600;
+	padding: 8px;
+	color: #3498DB;
+	margin: 0 -8px;
+	text-decoration: none;
+}
+
+#books a:hover, #notes a:hover
+{
+	background-color: rgba(52, 152, 219, 0.6);
+	color: #FFFFFF;
+}
+
+.add-item
+{
+	position: absolute;
+	bottom: 0;
+	padding: 8px;
+	cursor: pointer;
+	left: 0;
+	right: 0;
+	font-weight: 600;
+}
+
+.add-item:hover, .add-item:hover span
+{
+	background-color: #3498DB;
+	color: #FFFFFF;
+}
+
+.add-item span
+{
+	font-family: 'Icon';
+	color: #3498DB;
+}
+
+#notes h3 a
+{
+	margin: -8px 0;
+	padding: 8px;
+	display: inline-block;
+	font-family: 'Icon';
+	border-radius: 4px;
+}
+
+#notes h3 a:hover
+{
+	background-color: #3498DB;
+}
+
+#books a.active, #notes a.active
+{
+	background-color: #3498DB !important;
+	color: #FFFFFF;
+}
+
+#note-title
+{
+	position: absolute;
+	left: 364px;
+	top: 16px;
+	margin: 0;
+	display: none;
+}
+
+#note-view, #editor-wrapper
+{
+	display: block;
+	position: fixed;
+	top: 80px;
+	bottom: 16px;
+	left: 332px;
+	right: 16px;
+	z-index: 2;
+	background-color: #FFFFFF;
+	border: 1px solid #E0E0E0;
+	overflow: auto;
+	display: none;
+}
+
+#note-view
+{
+	padding: 16px 16px 50px 16px;
+}
+
+#editor-wrapper
+{
+	display: none;
+}
+
+#editor
+{
+	width: calc(100% - 16px);
+	height: calc(100% - 20px);
+	padding: 8px;
+	border: 0;
+	resize: none;
+}
+
+#controls
+{
+	position: fixed;
+	top: 23px;
+	right: 16px;
+	z-index: 3;
+	display:none;
+}
+
+#controls button
+{
+	padding: 8px 16px;
+	font-family: 'Icon';
+	color: #FFFFFF;
+	background-color: rgba(52, 152, 219, 0.6);
+	border: 0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#controls button:hover
+{
+	background-color: #3498DB;
+}
+
+/* *************************************************** */
+
+body {counter-reset: h1 h2 h3 h4 h5}
+h1.numbered {counter-reset: h2}
+h2.numbered {counter-reset: h3}
+h3.numbered {counter-reset: h4}
+h4.numbered {counter-reset: h5}
+
+h1.numbered:before {counter-increment: h1; content: counter(h1) ". "}
+h2.numbered:before {counter-increment: h2; content: counter(h1) "." counter(h2) ". "}
+h3.numbered:before {counter-increment: h3; content: counter(h1) "." counter(h2) "." counter(h3) ". "}
+h4.numbered:before {counter-increment: h4; content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) ". "}
+h5.numbered:before {counter-increment: h5; content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". "}
+
+blockquote
+{
+	border-left: 4px solid #3498DB;
+	padding: 8px 8px 8px 16px;
+	background-color: rgba(52, 152, 219, 0.14);
+}
+blockquote blockquote
+{
+	margin-left: 12px;
+}
+
+hr
+{
+	border : 0;
+	height : 2px;
+	background-color: #CCCCCC;
+	margin : 1em 0;
+}
+
+#note-view a{ color: #3498DB; }
+#note-view a:hover{ color: rgba(52, 152, 219, 0.6); }
+
+img.equation
+{
+	vertical-align: middle;
+}
+.equation-error
+{
+	color: #D24344;
+	font-weight: 600;
+}
+
+table
+{
+	border-spacing: 0;
+    border-collapse: collapse;
+	margin: 16px auto;
+}
+table td, table th
+{
+	padding: 8px;
+}
+table th
+{
+	text-align: left;
+	background-color: #B4D9F2;
+	border-bottom: 2px dotted #CCCCCC;
+}
+table td
+{
+	background-color: #f6f6f6
+}
+table tr:nth-child(2n) td
+{
+	background-color: #e9e9e9;
+}
+
+/* ******************************************************************** */
+@media print
+{
+   #books, #notes, #editor-wrapper, #controls, header{ display: none !important; }
+   #note-view
+	{
+		position: static;
+		overflow: auto;
+		border: 0;
+	}
+	
+	h1, h2, h3, h4, h5{ page-break-after: avoid; }
+	
+	table th
+	{
+		border-bottom: 2px solid #CCCCCC;
+	}
+	
+	table td
+	{
+		border-bottom: 1px dotted #CCCCCC;
+	}
+	
+	table tr:last-child td
+	{
+		border-bottom: 0;
+	}
+}

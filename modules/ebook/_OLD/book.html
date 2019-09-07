@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html mozNoMarginBoxes>
+<head>
+	<meta charset='utf-8'>
+	<link rel='stylesheet' href='css/style.css'>
+	<title>Notes4Free</title>
+	
+	<link rel="stylesheet" href="js/codemirror/codemirror.css">
+	<link rel="shortcut icon" type="image/png" href="css/logo.png" />
+	<script src="js/codemirror/codemirror.js"></script>
+	<script src="js/codemirror/addon/continuelist.js"></script>
+	<script src="js/codemirror/mode/xml.js"></script>
+	<script src="js/codemirror/mode/markdown.js"></script>
+</head>
+<body>
+	<header>
+		<h1><img src='css/logo.png'> Notes 4 free</h1>
+	</header>
+	
+	<h1 id='note-title'></h1>
+	<div id='note-view'></div>
+	<div id='editor-wrapper'><textarea id='editor' noresize></textarea></div>
+	
+	<div id="controls">
+		<button id='print'></button>
+		<button id='toggle-editor'></button>
+	</div>
+	
+
+	<div id='books'><nav><div id='load'><img src='css/load.gif'><h1>Betöltés</h1></div></nav></div>
+	
+	<div id='notes'><h3></h3><nav></nav></div>
+	
+	<script src='http://code.jquery.com/jquery-2.1.1.min.js'></script>
+	<script src='parser.js'></script>
+	<script>
+		var notesData;
+		$.get('test.notes', function(data)
+		{
+			$('#books nav').html('');
+			notesData = $(data);
+			notesData.find('book').each(function()
+			{
+				$('#books nav').append('<a href="#book:' + $(this).attr('name') + '">' + $(this).attr('name') + '</a>');
+				$('#books a').click(loadNoteList).fadeIn('slow');
+			});
+			$('#books').prepend('<h3>Jegyzetkönyvek</h3>');
+			$('#books').append('<div id="add-book" class="add-item"><span></span> Add book</div>');
+			$('#notes').append('<div id="add-note" class="add-item"><span></span> Add note</div>');
+		});
+		
+		var editor = CodeMirror.fromTextArea(document.getElementById("editor"),
+		{
+			mode: 'markdown',
+			lineNumbers: false,
+			theme: "default",
+			extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"},
+			highlightFormatting: true,
+			lineWrapping: true,
+		});
+
+		function loadNoteList(e)
+		{
+			e.preventDefault();
+			$('#books a').removeClass('active');
+			$(this).addClass('active');
+			
+			$('#notes h3').html('');			
+			$('#notes nav').html('');
+			notesData.find('book[name="'+$(this).attr('href').substring(6)+'"] note').each(function()
+			{
+				$('#notes nav').append('<a href="#note:' + $(this).attr('name') + '">' + $(this).attr('name') + '</a>');
+			});
+			$('#notes h3').html("<a href='#books'></a> "+$(this).text());
+	
+			$('#notes nav a').click(loadNote);
+			$('#notes h3 a').click(function()
+			{
+				$('#notes').css('display', 'none');
+				$('#controls').css('display', 'none');
+			});
+			
+			
+			$('#notes').css('display', 'block');
+		}
+		
+		function loadNote(e)
+		{
+			e.preventDefault();
+			$('#notes a').removeClass('active');
+			$(this).addClass('active');
+			
+			document.title = $(this).attr('href').substring(6);
+			var note = notesData.find('note[name="'+$(this).attr('href').substring(6)+'"]').html().trim();
+			$('#note-view').html(parse(note));
+			editor.setValue(note);
+			editor.focus();
+			
+			$('#note-view img.equation').each(function()
+			{
+				$(this).error(function()
+				{
+					$(this).replaceWith("<span class='equation-error'>Bad TeX sytax!</span>");
+				}).attr('src',$(this).prop('src'));
+			});
+			
+			$('#note-title').html($(this).attr('href').substring(6)).css('display', 'block');
+			$('#controls').css('display', 'block');
+			$('#note-view').css('display', 'block');
+		}
+		
+		$('#toggle-editor').click(function()
+		{
+			if($('#editor-wrapper').css('display') == 'block')
+			{
+				$('#editor-wrapper').css('display', 'none');
+				$('#note-view').css('display', 'block').html($(parse(editor.getValue())));
+				$(this).html('');
+			}
+			else
+			{
+				$('#editor-wrapper').css('display', 'block');
+				$('#note-view').css('display', 'none');
+				editor.refresh();
+				editor.focus();
+				$(this).html('');
+			}
+		});
+		
+		$('#print').click(function()
+		{
+			$('#note-view').css('display', 'block').html(parse($('#editor').val(), true));
+			window.print();
+		});
+	</script>
+</body>
+</html>

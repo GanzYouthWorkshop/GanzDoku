@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Választható projektek</title>
+	
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Barlow&subset=latin-ext');
+		
+		body
+		{
+			font-family: 'Barlow';
+			color: #222222;
+			background-color: #EEEEEE;
+		}
+		
+		#accordion
+		{
+			width: 60rem;
+			margin: 0 auto;
+		}
+		
+		h1, h2
+		{
+			text-transform: uppercase;
+		}
+		
+		section
+		{
+			border-bottom: 3px solid transparent;
+		}
+				
+		section header
+		{
+			padding: .7em;
+			background-color: #3f51b5;
+			cursor: pointer;
+			color: #FFFFFF;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+		
+		section article
+		{
+			display: none;
+			padding: .7em;
+			background-color: #FFFFFF;
+			color: #222222;
+		}
+		
+		section.visible article
+		{
+			display: block;
+		}
+		
+		.free-project header
+		{
+			background-color:  #2EBB98;
+		}
+		
+		.wip-project header
+		{
+			background-color:  #3F51B5;
+		}
+
+		
+		span
+		{
+			position: relative;
+			top: 6px;
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			line-height: 32px;
+		}
+		
+		i
+		{
+			font-style: normal;
+			font-family: 'Times New Roman';
+		}
+	</style>
+</head>
+<body>
+	
+	<div id='accordion'>
+		<h1>Műhelyes projektek</h1>
+		<p>
+			Mostantól akin azt látjuk, hogy huzamosabb ideig nem dolgozik, annak lehetőséget biztosítunk nagyobb projektek kivitelezésére.
+			Ezeket akár több tag is elkészítheti együtt. A műhelyes projektek a műhely tulajdonai maradnak. A közérdekű munkát természetesen 
+			értékeljük, aki kiemelkedően sok projektet végzett el karácsonykor nagyobb értékű ajándékot kap/kérhet.
+		</p>
+		<p>
+			<span style='background-color: #2EBB98'></span> Még szabad projektek<br>
+			<span style='background-color: #3f51b5'></span> Futó projekt, de lehet csatlakozni
+		</p>
+		<p>
+			<i>●○○○○</i>: nagyon könnyű projekt, semmilyen elektronikai tudás nem szükséges hozzá<br>
+			<i>●●○○○</i>: könnyű projekt, alapvető forrasztási és nyákkészítési ismeretek szükségesek<br>
+			<i>●●●○○</i>: közepesen nehéz projekt, forrasztási rutin szükséges<br>
+			<i>●●●●○</i>: nehéz projekt, nagy rutin és önálló tervezési ismeretek szükségesek<br>
+			<i>●●●●●</i>: nagyon nehéz projekt, csak átfogó elméleti és gyakorlati ismerettel lehet elfogadni!
+		</p>
+		<h2>Jelenleg elérhető műhelyes projektek</h2>
+		<section class='free-project'>
+			<header><i>●●○○○</i> Vezetéknélküli hangtovábbító</header>
+			<article>
+				<aside>Nehézség: <i>●●○○○</i></aside>
+				<p>
+					Két kapcsolás, az egyik egy vevő, a másik egy adó pl. hang továbbításáara.
+				</p>
+				<p>
+					<b>Projekttagok</b>: ez a projekt még szabad!
+				</p>
+				<p>
+					<b>Link</b>: <a href='http://bsselektronika.hu/index.php?w=GD8bHU8koU'>http://bsselektronika.hu/index.php?w=GD8bHU8koU</a>
+				</p>
+			</article>
+		</section>
+		<section class='wip-project'>
+			<header><i>●●●●●</i> GanzDoku fejlesztés - ebook olvasó</header>
+			<article>
+				<aside>Nehézség: <i>●●●●●</i></aside>
+				<p>Szeretnénk az összes ganzdokus leírást egy közös megjelenítővel használni és ehhez kezdtünk el egy ebook-olvasót fejleszteni</p>
+				<p><b>Projekttagok</b>: Kimmel Gábor</p>
+				<p><b>Link</b>: ---</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●●●●●</i> GanzDoku fejlesztés - C# leírás</header>
+			<article>
+				<aside>Nehézség: <i>●●●●●</i></aside>
+				<p>Hasonlóan az arduinós leíráshoz szeretnénk eg C#-osat is csinálni.</p>
+				<p><b>Projekttagok</b>: ez a projekt még szabad!</p>
+				<p><b>Link</b>: ---</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●●●●●</i> GanzDoku fejlesztés - LEGO leírás</header>
+			<article>
+				<aside>Nehézség: <i>●●●●●</i></aside>
+				<p>Hasonlóan az arduinós leíráshoz szeretnénk eg LEGO Mindstormsosat-osat is csinálni.</p>
+				<p><b>Projekttagok</b>: ez a projekt még szabad!</p>
+				<p><b>Link</b>: ---</p>
+			</article>
+		</section>
+		<section class='wip-project'>
+			<header><i>●●●●○</i> CNC asztal</header>
+			<article>
+				<aside>Nehézség: <i>●●●●○</i></aside>
+				<p>A gépi és vegyi maróhoz terveztünk egy zárható munkaasztalt.</p>
+				<p><b>Projekttagok</b>: Kimmel Gábor</p>
+				<p><b>Link</b>: ---</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●●●○○</i> Raktár ajtó jevítása</header>
+			<article>
+				<aside>Nehézség: <i>●●●○○</i></aside>
+				<p>A raktár jelenlegi ajtaja helyére kéne szerezni egy újat, mert nem lehet bezárni a mérete átalg panellakás belső ajtó, 60cm-es.</p>
+				<p><b>Projekttagok</b>: ez a projekt még szabad!</p>
+				<p><b>Link</b>: ---</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●●●○○</i> 3x3 LED kocka</header>
+			<article>
+				<aside>Nehézség: <i>●●●○○</i></aside>
+				<p>
+					Egy egyszerűnek tűnő kapcsolás, de szépen, dobozba vagy falapra kell megcsinálni!
+				</p>
+				<p>
+					<b>Projekttagok</b>: ez a projekt még szabad!
+				</p>
+				<p>
+					<b>Link</b>: <a href='http://bsselektronika.hu/index.php?w=L8RTx2FJOX'>http://bsselektronika.hu/index.php?w=L8RTx2FJOX</a>
+				</p>
+			</article>
+		</section>
+
+		<h2>Régebbi projektek</h2>
+		<section class='free-project'>
+			<header><i>●●●●○</i> Ledes játék oszcilloszkóp</header>
+			<article>
+				<aside>Nehézség: <i>●●●●○</i></aside>
+				<p>
+					Ez egy kitűnő projekt lenne a műhely számára promózni. Ha kell a nyákok tervezésében és a kapcsolás
+					személyre szabásában az oktatók segítenek.
+				</p>
+				<p>
+					<b>Projekttagok</b>: ez a projekt még szabad!
+				</p>
+				<p>
+					<b>Link</b>: <a href='http://bsselektronika.hu/index.php?w=BVQpvABHGN'>http://bsselektronika.hu/index.php?w=BVQpvABHGN</a>
+				</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●●●○○</i> Fémkereső</header>
+			<article>
+				<aside>Nehézség: <i>●●●○○</i></aside>
+				<p>
+					Ez egy egyszerű projekt amihez viszont modellezői tudás is szükséges. A kapcsolást az oktatóktól lehet elkérni.
+					Nyáktervezésben segítünk.
+				</p>
+				<p>
+					<b>Projekttagok</b>: ez a projekt még szabad!
+				</p>
+				<p>
+					<b>Link</b>: -
+				</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●○○○○</i> Új modulok a tananyaghoz</header>
+			<article>
+				<aside>Nehézség: <i>●○○○○</i></aside>
+				<p>
+					Ebben a projektben csak ötletelni kell, hogy milyen, egyszerű kapcsolásokkal lehetne bővíteni az elektronika tananyagot.
+					 Kapcdsolást nem kell tervezni, de neten kereshetsz.
+				</p>
+				<p>
+					Az ideális új modulok a lehető legtöbb másik modulhoz hozzákapcsolhatóak és együtt is valami érdekeset csinálnak!
+				</p>
+				<p>
+					<b>Projekttagok</b>: ez a projekt még szabad!
+				</p>
+				<p>
+					<b>Link</b>: -
+				</p>
+			</article>
+		</section>
+		<section class='free-project'>
+			<header><i>●○○○○</i> Alaktrésztartó dobozok készítése</header>
+			<article>
+				<aside>Nehézség: <i>●○○○○</i></aside>
+				<p>
+					Ebben a projektben egyszerű papírdobozokat kell készíteni egy megadott sablon alapján.
+				</p>
+				<p>
+					<b>Projekttagok</b>: ez a projekt még szabad!
+				</p>
+				<p>
+					<b>Link</b>: -
+				</p>
+			</article>
+		</section>
+	</div>
+	
+	<script src='https://code.jquery.com/jquery-2.2.3.min.js'></script>
+	<script>
+	$('section header').click(function()
+	{
+		$(this).parent().toggleClass('visible');
+	});
+	</script>
+</body>
+</html>
